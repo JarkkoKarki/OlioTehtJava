@@ -1,7 +1,6 @@
 package AccountManagement;
 
 public class BankAccount {
-    // Your variable declarations and code here
     private static int accountAmount;
     private int accountNumber;
     private int balance;

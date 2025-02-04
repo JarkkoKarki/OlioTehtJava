@@ -23,17 +23,6 @@ public class Main {
         library.returnBook(member2, book2);
         library.getMembers();
 
-        System.out.println();
-        library.reserveBook(member1, book1);
-        library.reserveBook(member2, book2);
-        library.displayReservedBooks(member1);
-        library.displayReservedBooks(member2);
-        library.cancelReservation(member1, book1);
-        library.cancelReservation(member2, book2);
-        library.displayReservedBooks(member1);
-        library.displayReservedBooks(member2);
-        System.out.println();
-
         library.removeMember(member1);
         library.removeMember(member2);
         library.getMembers();
