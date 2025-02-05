@@ -25,35 +25,24 @@ public class FileReader {
         }
 
         try {
-            // open the connection and get the input stream
-            // it will automatically generate HTTP GET-request
             InputStream istream = myUrl.openStream();
-
-            // jump to character streams
             InputStreamReader istreamreader = new InputStreamReader(istream);
-
-            // and to buffered reader for efficiency
             BufferedReader reader = new BufferedReader(istreamreader);
 
-            // we use StringBuilder for efficiency, concatenating ordinary Strings is slow and
-            // generates unnecessary objects
             String line;
             StringBuilder response = new StringBuilder();
 
-            // here we read the content of the web page line by line
             while ((line = reader.readLine()) != null) {
                 if (line != null) {
                     if (header) {
-                        // first row of the file contains names of columns
-                        columnNames = line.split(";");
+                        //columnNames = line.split(";");
                         header = false;
                     } else {
-                        // just print data lines with column names
                         String[] columns = line.split(";");
                             for (int i = 0; i < 2 && i < columns.length; i++) {
-                                Date rowDate = dateFormat.parse(columns[0].trim());
+                                Date rowDate = dateFormat.parse(columns[0].trim());  // Laitetaan päivämäärät oikeaan muotoon
                                 if (rowDate.after(targetDate) && rowDate.before(EndDate)) { // Valitaan ajat, jotka ovat tavoite ajan välissä
-                                        System.out.print(columnNames[i] + ": " + columns[i] + ", ");
+                                        //System.out.print(columnNames[i] + ": " + columns[i] + ", ");
                                         data.add(columns[1]);    // Lisätään Lämpötilat listaan
 
                             }
