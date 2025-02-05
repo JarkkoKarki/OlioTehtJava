@@ -22,9 +22,6 @@ abstract class Vehicles implements Vehicle, ElectricVehicle {
         this.fuel = fuel;
         this.fuelEfficiency = fuelEfficiency;
     }
-    public abstract void start();
-    public abstract void stop();
-    public abstract void getInfo();
 
     @Override
     public void charge() {
@@ -34,6 +31,10 @@ abstract class Vehicles implements Vehicle, ElectricVehicle {
     public double calculateFuelEfficiency() {
         return this.fuelEfficiency;
     }
+
+    public abstract void start();
+    public abstract void stop();
+    public abstract void getInfo();
 
 }
 
