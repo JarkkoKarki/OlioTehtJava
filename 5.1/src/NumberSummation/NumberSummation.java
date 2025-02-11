@@ -24,9 +24,9 @@ public class NumberSummation {
                 end = list.size();
             }
 
-            Sum thread = new Sum(list, i, end);
-            threads.add(thread);
-            thread.start();
+            Sum s = new Sum(list, i, end);
+            threads.add(s);
+            s.start();
         }
 
         long totalSum = 0;

@@ -12,7 +12,7 @@ public class Main {
 
         File f = new File(fileName);
 
-        if (f.exists() && f.length() > 0) {
+        if (!f.exists() && f.length() > 0) {
             try (FileInputStream inputStream = new FileInputStream(fileName);
                  ObjectInputStream objects = new ObjectInputStream(inputStream)) {
                 Enrollment deserialize = (Enrollment) objects.readObject();
