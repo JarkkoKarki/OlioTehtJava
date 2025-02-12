@@ -7,7 +7,7 @@ import java.util.Random;
 public class NumberSummation {
     public static void main(String[] args) {
         int cores = Runtime.getRuntime().availableProcessors();
-        System.out.println("Available processor cores: " + cores);
+        System.out.println("Processor cores: " + cores);
 
         List<Integer> list = new ArrayList<>();
         Random rand = new Random();

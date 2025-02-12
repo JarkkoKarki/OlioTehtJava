@@ -2,7 +2,7 @@ package NumberPrinting;
 
 import java.util.Scanner;
 
-public class NumberPrinting implements Runnable {
+public class NumberPrinting {
     private int firstNumber;
     private int secondNumber;
 
@@ -11,22 +11,17 @@ public class NumberPrinting implements Runnable {
         this.secondNumber = secondNumber;
     }
 
-    public void run() {
-        if (firstNumber < secondNumber) {
-            for (int i = firstNumber; i < secondNumber; i++) {
-                if (i % 2 == 1) {
-                    System.out.println("Odd Thread: " + i);
-                }
+    public void Even() {
+        for (int i = firstNumber; i <= secondNumber; i++)
+            if (i % 2 == 0) {
+                System.out.println("Even Thread: " + i);
             }
-        } else {
-            System.out.println("Range Is too short");
-        }
+    }
 
-    }
-    public int getFirstNumber(){
-        return firstNumber;
-    }
-    public int getSecondNumber() {
-        return secondNumber;
+    public void Odd() {
+        for (int i = firstNumber; i <= secondNumber; i++)
+            if (i % 2 == 1) {
+                System.out.println("Odd Thread: " + i);
+            }
     }
 }
