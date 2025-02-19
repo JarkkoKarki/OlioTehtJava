@@ -1,0 +1,13 @@
+.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: blue;
+}
+
+.button {
+    -fx-background-color: lightblue;
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-background-color: lightgray;
+}
