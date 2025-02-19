@@ -1,9 +1,12 @@
+package Tickets;
+
 public class Customer {
     private int tickets;
     private int id;
+    private static int idCounter = 1;
 
     public Customer() {
-        id++;
+            this.id = idCounter++;
     }
 
     public int getId() {
