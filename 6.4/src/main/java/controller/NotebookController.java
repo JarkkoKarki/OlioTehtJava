@@ -35,4 +35,8 @@ public class NotebookController {
     public void resTitles() {
         System.out.println("RES");
     }
+
+    public List<Note> getNotes() {
+        return notebook.getNotes();
+    }
 }

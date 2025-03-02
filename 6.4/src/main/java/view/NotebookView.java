@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import java.io.IOException;
+import java.util.List;
+
 import javafx.scene.text.Text;
 import model.Note;
 
@@ -48,34 +50,43 @@ public class NotebookView extends Application {
             stage.setScene(initialScene);
             stage.show();
             openButton.setOnAction(event -> { //OPEN
-                try {
-                    String note = noteTextField.getText();
-                    if (controller.showNotes().equals(note)) System.out.println("Löytyi"); //DEBUG
-                    FXMLLoader fxml1 = new FXMLLoader(getClass().getResource("/note.fxml"));
-                    Scene noteScene = new Scene(fxml1.load());
-                    stage.setScene(noteScene);
-                    TextArea title = (TextArea) noteScene.lookup("#Title");
-                    TextArea text = (TextArea) noteScene.lookup("#Text");  // HAETAAN TIEDOT
-                    title.setText(controller.getTitle(note));
-                    text.setText(controller.getText(note));
-                    stage.show(); // TUODAAN TIEDOT
+                List<Note> notes = controller.getNotes();
+                for (Note n : notes) {
 
-                    Button saveButton = (Button) noteScene.lookup("#saveButton");  // TALLENNUS
-                    saveButton.setOnAction(actionEvent -> {
-                        String titleText = title.getText();
-                        String textText = text.getText();
-                        controller.deleteOld(titleText);
-                        controller.handleSave(titleText, textText);
-                        Text text1 = (Text) initialScene.lookup("#show");
-                        text1.setText(controller.showNotes());
+                    if (n.getTitle().equals(noteTextField.getText())) {
+                        try {
+                            String note = noteTextField.getText();
+                            {
+                                System.out.println("Löytyi");
+                            }
+                            FXMLLoader fxml1 = new FXMLLoader(getClass().getResource("/note.fxml"));
+                            Scene noteScene = new Scene(fxml1.load());
+                            stage.setScene(noteScene);
+                            TextArea title = (TextArea) noteScene.lookup("#Title");
+                            TextArea text = (TextArea) noteScene.lookup("#Text");  // HAETAAN TIEDOT
+                            title.setText(controller.getTitle(note));
+                            text.setText(controller.getText(note));
+                            stage.show(); // TUODAAN TIEDOT
 
-                        stage.setScene(initialScene);
-                        stage.show();
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
+                            Button saveButton = (Button) noteScene.lookup("#saveButton");  // TALLENNUS
+                            saveButton.setOnAction(actionEvent -> {
+                                String titleText = title.getText();
+                                String textText = text.getText();
+                                controller.deleteOld(titleText);
+                                controller.handleSave(titleText, textText);
+                                Text text1 = (Text) initialScene.lookup("#show");
+                                text1.setText(controller.showNotes());
+
+                                stage.setScene(initialScene);
+                                stage.show();
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             });
+
 
 
 
