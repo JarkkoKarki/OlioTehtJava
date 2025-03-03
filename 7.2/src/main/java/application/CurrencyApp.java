@@ -14,4 +14,5 @@ public class CurrencyApp {
             Currency cur = curdao.getCurrency(num);
             return cur.getRate();
         }
+
     }

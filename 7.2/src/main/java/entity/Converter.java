@@ -5,6 +5,7 @@ import application.CurrencyApp;
 public class Converter {
     CurrencyApp app = new CurrencyApp();
     double amount;
+
     public double EURtoUSD(double value) {
         amount = value * app.getRate(2);
         return amount;
@@ -41,8 +42,8 @@ public class Converter {
     }
     public double GBPtoUSD(double value) {
         if (app.getRate(2) > 0) {
-            double eurToGbpRate = app.getRate(3); // Assuming 3 is the ID for GBP
-            double eurToUsdRate = app.getRate(2); // Assuming 2 is the ID for USD
+            double eurToGbpRate = app.getRate(3);
+            double eurToUsdRate = app.getRate(2);
             amount = (value / eurToGbpRate) * eurToUsdRate;
             return amount;
         } else {

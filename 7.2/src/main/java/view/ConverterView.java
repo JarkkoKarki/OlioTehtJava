@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class ConverterView extends Application {
@@ -24,6 +25,8 @@ public class ConverterView extends Application {
         Label label2 = new Label("Converted amount");
         Label label3 = new Label("0");
         TextField text1 = new TextField();
+        Label errorLabel = new Label("407");
+        errorLabel.setStyle("-fx-text-fill: red;");
 
         ChoiceBox<String> choiceBox1 = new ChoiceBox<>();
         choiceBox1.getItems().addAll("EUR", "USD", "GBP");
@@ -40,13 +43,21 @@ public class ConverterView extends Application {
         });
 
         button.setOnAction(event -> {
-            double amount = Double.parseDouble(text1.getText());
-            String selection1 = choiceBox1.getValue();
-            String selection2 = choiceBox2.getValue();
-            double result = controller.handleSelection(amount, selection1, selection2);
-            label3.setText(String.valueOf(result));
+            try {
+                double amount = Double.parseDouble(text1.getText());
+                String selection1 = choiceBox1.getValue();
+                String selection2 = choiceBox2.getValue();
+                double result = controller.handleSelection(amount, selection1, selection2);
+                if (result == 0.0) {
+                    errorLabel.setText("Error: Rate not found");
+                } else {
+                    errorLabel.setText("");
+                }
+                label3.setText(String.valueOf(result));
+            } catch (Exception e) {
+                errorLabel.setText("Error: Unable to connect to database");
+            }
         });
-
         VBox vbox1 = new VBox(label1, text1, label2);
         VBox vbox2 = new VBox(label2, label3, choiceBox2, button);
         VBox vbox3 = new VBox(choiceBox1);
@@ -64,9 +75,10 @@ public class ConverterView extends Application {
         VBox.setMargin(choiceBox1, new Insets(10));
         VBox.setMargin(choiceBox2, new Insets(10, 10, 60, 10));
         VBox.setMargin(button, new Insets(10, 10, 40, 10));
+        VBox.setMargin(errorLabel, new Insets(10, 10, 10, 10));
 
         VBox layout = new VBox();
-        layout.getChildren().addAll(top, center, bottom);
+        layout.getChildren().addAll(top, center, bottom, errorLabel);
         layout.getStyleClass().add("layout");
 
         window.setTitle("Currency Converter");
