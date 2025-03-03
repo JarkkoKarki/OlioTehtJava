@@ -1,6 +1,7 @@
 package controller;
 
-import entity.model.Converter;
+import entity.Converter;
+import entity.Currency;
 import view.ConverterView;
 
 public class ConverterController {
@@ -22,9 +23,5 @@ public class ConverterController {
         } else {
             return amount;
         }
-    }
-
-    public static void main(String[] args) {
-        ConverterView.launch(ConverterView.class);
     }
 }

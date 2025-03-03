@@ -11,8 +11,8 @@ CREATE TABLE Currency (
 
 INSERT INTO Currency (code, name, rate) VALUES
                                             ('EUR', 'Euro', 1.000000),
-                                            ('USD', 'United States Dollar', 0.925926),
-                                            ('GBP', 'British Pound', 1.175926);
+                                            ('USD', 'United States Dollar', 1.050000),
+                                            ('GBP', 'British Pound', 0.83000);
 
 DROP USER IF EXISTS 'appuser'@'localhost';
 

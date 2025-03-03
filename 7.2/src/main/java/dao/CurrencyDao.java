@@ -1,28 +1,48 @@
 package dao;
 
+import entity.Currency;
 import java.sql.*;
 import datasource.DBConnection;
 import java.util.*;
 
 public class CurrencyDao {
+    private Connection connection;
 
-    public List<Currency> getAllEmployees(String currency) {
+    public CurrencyDao(Connection connection) {
+        this.connection = connection;
+    }
+
+    public Currency getCurrency(int num) {
         Connection conn = DBConnection.getConnection();
-        String sql = "SELECT rate FROM Currency;";
-        System.out.println(sql);
-        List<Currency> currencies = new ArrayList<Currency>();
+        String sql = "SELECT id, code, name, rate FROM currency WHERE id=?";
+
+        int id = 0;
+        String code = null;
+        String name = null;
+        double rate = 0.0;
+        int count = 0;
 
         try {
-            Statement s = conn.createStatement();
-            ResultSet rs = s.executeQuery(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, num);
+
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                String rate = rs.getString(1); // Ensure the index is within the correct range
-                System.out.println(rate);
+                count++;
+                id = rs.getInt(1);
+                code = rs.getString(2);
+                name = rs.getString(3);
+                rate = rs.getDouble(4);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return currencies;
+
+        if (count == 1) {
+            return new Currency(id, code, name, rate);
+        } else {
+            return null;
+        }
     }
 }
