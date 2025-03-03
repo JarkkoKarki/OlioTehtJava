@@ -31,15 +31,16 @@ public class Notebook {
         return null;
     }
 
-    public void deleteNote(String title) {
-        Iterator<Note> iterator = notes.iterator();
-        while (iterator.hasNext()) {
-            Note note = iterator.next();
-            if (note.getTitle().equals(title)) {
-                iterator.remove();
-                titles.remove(title);
-                System.out.println("Poistettu");
-            }
+    public void removeNote(Note note) {
+        notes.remove(note);
+    }
+
+    public void deleteNote(Note note) {
+        Note foundNotes = getNoteByTitle(note.getTitle());
+        if (foundNotes != null && foundNotes.equals(note)) {
+            removeNote(note);
+            System.out.println("Poistettu");
         }
     }
+
 }

@@ -8,13 +8,14 @@
 
 <AnchorPane prefHeight="477.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button fx:id="openButton" layoutX="384.0" layoutY="333.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="78.0" text="Open" />
-        <Button fx:id="addButton" layoutX="384.0" layoutY="431.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="78.0" text="Add New" />
+        <Button fx:id="openButton" layoutX="365.0" layoutY="307.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="78.0" text="Open" />
+        <Button fx:id="addButton" layoutX="365.0" layoutY="431.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="78.0" text="Add New" />
       <ListView fx:id="listView" layoutX="20.0" layoutY="90.0" prefHeight="376.0" prefWidth="335.0" />
       <Label layoutX="20.0" layoutY="28.0" text="Notebook">
          <font>
             <Font name="Bodoni MT" size="25.0" />
          </font>
       </Label>
+      <Button fx:id="deleteButton" layoutX="365.0" layoutY="346.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="78.0" text="Delete" />
     </children>
 </AnchorPane>

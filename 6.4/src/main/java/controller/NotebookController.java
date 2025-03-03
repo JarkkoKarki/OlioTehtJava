@@ -8,14 +8,20 @@ import java.util.List;
 public class NotebookController {
     Notebook notebook = new Notebook();
 
-    public void handleSave(String title, String text) {
-        deleteOld(title);
+    public void handleSave(Note noteN, String title , String text) {
+        deleteOld(noteN);
         Note note = new Note(title, text);
         notebook.addNote(note);
     }
 
-    public void deleteOld(String title) {
-        notebook.deleteNote(title);
+    public void handleSaveNew(String title , String text) {
+        Note note = new Note(title, text);
+        notebook.addNote(note);
+    }
+
+
+    public void deleteOld(Note note) {
+        notebook.deleteNote(note);
     }
 
     public String getTitle(String title) {

@@ -4,6 +4,8 @@ import controller.NotebookController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -42,7 +45,10 @@ public class NotebookView extends Application {
     @FXML
     private Button openButton;
 
-    String[] notes;
+    @FXML
+    private Button deleteButton;
+
+    private ObservableList<String> noteTitles;
 
     String current;
 
@@ -54,19 +60,32 @@ public class NotebookView extends Application {
             fxml.setController(this);
             initialScene = new Scene(fxml.load());
             NotebookController controller = new NotebookController();
-
-
-
             stage.setTitle("Notebook");
             stage.setScene(initialScene);
             stage.show();
-
+            noteTitles = FXCollections.observableArrayList();
+            listView.setItems(noteTitles);
 
             listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                     current = listView.getSelectionModel().getSelectedItem();
 
+                }
+            });
+
+            deleteButton.setOnAction(event -> {
+                List<Note> notes = controller.getNotes();
+                Note note = null;
+                for (Note n : notes) {
+                    if (n.getTitle().equals(current)) {
+                        note = n;
+                    }
+                }
+                if (note != null) {
+                    controller.deleteOld(note);
+                    System.out.println("Poistettu");
+                    noteTitles.remove(note.getTitle());
                 }
             });
 
@@ -86,16 +105,17 @@ public class NotebookView extends Application {
                             stage.show(); // TUODAAN TIEDOT
 
 
-
-
                             Button saveButton = (Button) noteScene.lookup("#saveButton");  // TALLENNUS
                             saveButton.setOnAction(actionEvent -> {
-                                if (current!=null) {
+                                if (current != null) {
                                     String titleText = title.getText();
                                     String textText = text.getText();
-                                    controller.deleteOld(titleText);
-                                    controller.handleSave(titleText, textText);
-
+                                    controller.deleteOld(n);
+                                    controller.handleSave(n, titleText, textText);
+                                    if (!n.getTitle().equals(titleText)) {
+                                        noteTitles.remove(n.getTitle());
+                                        noteTitles.addAll(titleText);
+                                    }
                                     stage.setScene(initialScene);
                                     stage.show();
                                 }
@@ -108,28 +128,30 @@ public class NotebookView extends Application {
             });
 
 
-
-
             addButton.setOnAction(event -> {
                 try {
-                    FXMLLoader fxml1 = new FXMLLoader(getClass().getResource("/note.fxml"));
-                    Scene noteScene = new Scene(fxml1.load());
-                    stage.setScene(noteScene);
-                    stage.show();
+                            FXMLLoader fxml1 = new FXMLLoader(getClass().getResource("/note.fxml"));
+                            Scene noteScene = new Scene(fxml1.load());
+                            stage.setScene(noteScene);
+                            stage.show();
 
-                    Button saveButton = (Button) noteScene.lookup("#saveButton");
-                    saveButton.setOnAction(actionEvent -> {
-                        TextArea title = (TextArea) noteScene.lookup("#Title");
-                        TextArea text = (TextArea) noteScene.lookup("#Text");
-                        controller.handleSave(title.getText(), text.getText());
-                        listView.getItems().addAll(title.getText());
+                            Button saveButton = (Button) noteScene.lookup("#saveButton");
+                            saveButton.setOnAction(actionEvent -> {
+                                TextArea title = (TextArea) noteScene.lookup("#Title");
+                                TextArea text = (TextArea) noteScene.lookup("#Text");
 
-                        stage.setScene(initialScene);
-                        stage.show();
-                    });
-                } catch (IOException e) {
+
+                                controller.handleSaveNew(title.getText(), text.getText());
+                                listView.getItems().addAll(title.getText());
+
+                                stage.setScene(initialScene);
+                                stage.show();
+
+                            });
+                } catch (IOException e){
                     e.printStackTrace();
                 }
+
             });
 
         } catch (IOException e) {
