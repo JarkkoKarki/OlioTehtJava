@@ -7,19 +7,15 @@ import java.util.List;
 
 public class NotebookController {
     Notebook notebook = new Notebook();
-    String titles = "";
 
     public void handleSave(String title, String text) {
-        deleteOld(title); // Delete the old note first
+        deleteOld(title);
         Note note = new Note(title, text);
         notebook.addNote(note);
     }
 
     public void deleteOld(String title) {
         notebook.deleteNote(title);
-    }
-    public String showNotes() {
-        return notebook.printTitles();
     }
 
     public String getTitle(String title) {
@@ -30,10 +26,6 @@ public class NotebookController {
     public String getText(String title) {
         Note noteText = notebook.getNoteByTitle(title);
         return noteText.getText();
-    }
-
-    public void resTitles() {
-        System.out.println("RES");
     }
 
     public List<Note> getNotes() {

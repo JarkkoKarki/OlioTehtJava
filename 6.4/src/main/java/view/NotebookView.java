@@ -2,9 +2,12 @@ package view;
 
 import controller.NotebookController;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -20,9 +23,6 @@ import model.Note;
 public class NotebookView extends Application {
 
     @FXML
-    private Button openButton;
-
-    @FXML
     private Button addButton;
 
     @FXML
@@ -35,6 +35,17 @@ public class NotebookView extends Application {
     private TextField Title;
 
     private Scene initialScene;
+
+    @FXML
+    private ListView<String> listView;
+
+    @FXML
+    private Button openButton;
+
+    String[] notes;
+
+    String current;
+
 
     @Override
     public void start(Stage stage) {
@@ -49,36 +60,45 @@ public class NotebookView extends Application {
             stage.setTitle("Notebook");
             stage.setScene(initialScene);
             stage.show();
-            openButton.setOnAction(event -> { //OPEN
+
+
+            listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                    current = listView.getSelectionModel().getSelectedItem();
+
+                }
+            });
+
+            openButton.setOnAction(event -> {
                 List<Note> notes = controller.getNotes();
                 for (Note n : notes) {
 
-                    if (n.getTitle().equals(noteTextField.getText())) {
+                    if (n.getTitle().equals(current)) {
                         try {
-                            String note = noteTextField.getText();
-                            {
-                                System.out.println("Löytyi");
-                            }
                             FXMLLoader fxml1 = new FXMLLoader(getClass().getResource("/note.fxml"));
                             Scene noteScene = new Scene(fxml1.load());
                             stage.setScene(noteScene);
                             TextArea title = (TextArea) noteScene.lookup("#Title");
-                            TextArea text = (TextArea) noteScene.lookup("#Text");  // HAETAAN TIEDOT
-                            title.setText(controller.getTitle(note));
-                            text.setText(controller.getText(note));
+                            TextArea text = (TextArea) noteScene.lookup("#Text");  // Haetaan noten tiedot
+                            title.setText(controller.getTitle(current)); // Siirretään noten tiedot
+                            text.setText(controller.getText(current));
                             stage.show(); // TUODAAN TIEDOT
+
+
+
 
                             Button saveButton = (Button) noteScene.lookup("#saveButton");  // TALLENNUS
                             saveButton.setOnAction(actionEvent -> {
-                                String titleText = title.getText();
-                                String textText = text.getText();
-                                controller.deleteOld(titleText);
-                                controller.handleSave(titleText, textText);
-                                Text text1 = (Text) initialScene.lookup("#show");
-                                text1.setText(controller.showNotes());
+                                if (current!=null) {
+                                    String titleText = title.getText();
+                                    String textText = text.getText();
+                                    controller.deleteOld(titleText);
+                                    controller.handleSave(titleText, textText);
 
-                                stage.setScene(initialScene);
-                                stage.show();
+                                    stage.setScene(initialScene);
+                                    stage.show();
+                                }
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -102,9 +122,7 @@ public class NotebookView extends Application {
                         TextArea title = (TextArea) noteScene.lookup("#Title");
                         TextArea text = (TextArea) noteScene.lookup("#Text");
                         controller.handleSave(title.getText(), text.getText());
-                        Text text1 = (Text) initialScene.lookup("#show");
-                        text1.setText(controller.showNotes());
-
+                        listView.getItems().addAll(title.getText());
 
                         stage.setScene(initialScene);
                         stage.show();

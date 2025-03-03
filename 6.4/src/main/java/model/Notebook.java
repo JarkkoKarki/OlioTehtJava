@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Notebook {
-    String title = "";
     List<String> titles = new ArrayList<>();
     private List<Note> notes;
 
@@ -21,13 +20,6 @@ public class Notebook {
 
     public List<Note> getNotes() {
         return notes;
-    }
-
-    public String printTitles() {
-        String title = "";
-        for (String titleSS : titles)
-            title += titleSS + ", ";
-        return title;
     }
 
     public Note getNoteByTitle(String title) {
