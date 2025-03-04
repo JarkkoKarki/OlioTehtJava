@@ -12,12 +12,8 @@ public class DBConnection {
         if (conn == null) {
             try {
                 // Load the MariaDB driver
-                Class.forName("org.mariadb.jdbc.Driver");
                 conn = DriverManager.getConnection(
-                        "jdbc:mariadb://localhost:3306/CurrencyDB?user=appuser&password=root");
-            } catch (ClassNotFoundException e) {
-                System.out.println("MariaDB JDBC Driver not found.");
-                e.printStackTrace();
+                        "jdbc:mariadb://localhost:3306/currencydb?user=appuser&password=root");
             } catch (SQLException e) {
                 System.out.println("Connection failed.");
                 e.printStackTrace();

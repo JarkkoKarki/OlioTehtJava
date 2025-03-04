@@ -11,12 +11,37 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.*;
+import java.util.List;
 
 public class CurrencyDao {
     private Connection connection;
 
     public CurrencyDao(Connection connection) {
         this.connection = connection;
+    }
+
+    public List<Currency> getAllCurrencies() {
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT id, code, name, rate FROM currency  employee";
+        List<Currency> currencies = new ArrayList<Currency>();
+
+        try {
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String code = rs.getString(2);
+                String name = rs.getString(3);
+                double rate = rs.getDouble(4);
+                Currency cur = new Currency(id, code, name, rate);
+                currencies.add(cur);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return currencies;
     }
 
     public Currency getCurrency(int num) {

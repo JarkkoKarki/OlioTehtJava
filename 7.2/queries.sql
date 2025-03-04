@@ -6,7 +6,7 @@ CREATE TABLE Currency (
                           id INT PRIMARY KEY AUTO_INCREMENT,
                           code VARCHAR(3) NOT NULL UNIQUE,
                           name VARCHAR(50) NOT NULL,
-                          rate DECIMAL(10,6) NOT NULL -- To Euro
+                          rate DECIMAL(10,6) NOT NULL
 );
 
 INSERT INTO Currency (code, name, rate) VALUES

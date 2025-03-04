@@ -25,7 +25,7 @@ public class ConverterView extends Application {
         Label label2 = new Label("Converted amount");
         Label label3 = new Label("0");
         TextField text1 = new TextField();
-        Label errorLabel = new Label("407");
+        Label errorLabel = new Label("");
         errorLabel.setStyle("-fx-text-fill: red;");
 
         ChoiceBox<String> choiceBox1 = new ChoiceBox<>();
@@ -82,7 +82,7 @@ public class ConverterView extends Application {
         layout.getStyleClass().add("layout");
 
         window.setTitle("Currency Converter");
-        Scene scene = new Scene(layout, 400, 500);
+        Scene scene = new Scene(layout, 400, 550);
         scene.getStylesheets().add("/style.css");
         window.setScene(scene);
         window.show();

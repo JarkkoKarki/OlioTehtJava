@@ -15,4 +15,17 @@ public class CurrencyApp {
             return cur.getRate();
         }
 
+        public List<Currency> getCurrencies(){
+            return curdao.getAllCurrencies();
+        }
+
+    public double findCurrency(String fromCurrency) {
+        List<Currency> currencies = getCurrencies();
+        for (Currency c : currencies) {
+            if (c.getCode().equals(fromCurrency)) {
+                return c.getRate();
+            }
+        }
+        return -1;
     }
+}
