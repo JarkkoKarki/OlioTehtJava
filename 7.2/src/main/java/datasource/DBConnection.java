@@ -11,7 +11,6 @@ public class DBConnection {
     public static Connection getConnection() {
         if (conn == null) {
             try {
-                // Load the MariaDB driver
                 conn = DriverManager.getConnection(
                         "jdbc:mariadb://localhost:3306/currencydb?user=appuser&password=root");
             } catch (SQLException e) {
