@@ -1,6 +1,5 @@
 package datasource;
 
-import entity.Currency;
 import jakarta.persistence.*;
 
 public class MariaDbJpaConnection {
