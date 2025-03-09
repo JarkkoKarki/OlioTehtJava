@@ -1,6 +1,7 @@
 package entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "currency")
@@ -12,8 +13,18 @@ public class Currency {
     private String abbreviation, name;
     private double rate;
 
-    public Currency() {
+    @OneToMany(mappedBy = "currency")
+    private List<Transaction> transactions;
 
+    public Currency(int id, String abbreviation, String name, double rate, List<Transaction> transactions) {
+        this.id = id;
+        this.abbreviation = abbreviation;
+        this.name = name;
+        this.rate = rate;
+        this.transactions = transactions;
+    }
+
+    public Currency() {
     }
 
     public int getId() {
@@ -36,7 +47,7 @@ public class Currency {
         this.id = id;
     }
 
-    public void setAbbreviation(String code) {
+    public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
     }
 
@@ -48,5 +59,11 @@ public class Currency {
         this.rate = rate;
     }
 
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
 }

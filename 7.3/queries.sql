@@ -4,15 +4,15 @@ USE CurrencyDB1;
 
 CREATE TABLE Currency (
                           id INT PRIMARY KEY AUTO_INCREMENT,
-                          code VARCHAR(3) NOT NULL UNIQUE,
+                          abbreviation VARCHAR(3) NOT NULL UNIQUE,
                           name VARCHAR(50) NOT NULL,
                           rate DECIMAL(10,6) NOT NULL
 );
 
-INSERT INTO Currency (code, name, rate) VALUES
-                                            ('EUR', 'Euro', 1.000000),
-                                            ('USD', 'United States Dollar', 1.0539),
-                                            ('GBP', 'British Pound', 0.82706);
+INSERT INTO Currency (abbreviation, name, rate) VALUES
+                                                    ('EUR', 'Euro', 1.000000),
+                                                    ('USD', 'United States Dollar', 1.0539),
+                                                    ('GBP', 'British Pound', 0.82706);
 
 DROP USER IF EXISTS 'appuser'@'localhost';
 

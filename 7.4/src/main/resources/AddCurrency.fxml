@@ -12,18 +12,18 @@
       <AnchorPane prefHeight="408.0" prefWidth="539.0" style="-fx-background-color: #393E46;">
          <children>
             <TextField fx:id="abbreviationField" layoutX="222.0" layoutY="74.0" prefHeight="25.0" prefWidth="93.0" promptText="ex. EUR" style="-fx-background-color: #EEEEEE;" />
-            <Label layoutX="56.0" layoutY="73.0" prefHeight="27.0" prefWidth="141.0" text="Abbreviation:" textFill="#00b258">
+            <Label layoutX="72.0" layoutY="236.0" prefHeight="27.0" prefWidth="69.0" text="Rate:" textFill="#00b258">
                <font>
                   <Font name="Century Schoolbook" size="21.0" />
                </font>
             </Label>
-            <Label layoutX="56.0" layoutY="155.0" prefHeight="27.0" prefWidth="84.0" text="Name:" textFill="#00b258">
+            <Label layoutX="64.0" layoutY="155.0" prefHeight="27.0" prefWidth="84.0" text="Name:" textFill="#00b258">
                <font>
                   <Font name="Century Schoolbook" size="21.0" />
                </font>
             </Label>
             <Button fx:id="addCurrency" layoutX="420.0" layoutY="311.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" style="-fx-background-color: #EEEEEE;" text="Add" textFill="#222831" />
-            <Label layoutX="60.0" layoutY="236.0" prefHeight="27.0" prefWidth="77.0" text="Rate:" textFill="#00b258">
+            <Label layoutX="62.0" layoutY="73.0" prefHeight="27.0" prefWidth="158.0" text="Abbreviation: " textFill="#00b258">
                <font>
                   <Font name="Century Schoolbook" size="21.0" />
                </font>

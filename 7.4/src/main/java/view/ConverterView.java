@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class ConverterView extends Application {
 
     @FXML
@@ -37,7 +39,7 @@ public class ConverterView extends Application {
     private Button addCurrency;
 
     @FXML
-    private TextField codeField;
+    private TextField abbreviationField;
 
     @FXML
     private TextField nameField;
@@ -46,6 +48,7 @@ public class ConverterView extends Application {
     private TextField rateField;
 
     private ConverterController controller;
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -57,7 +60,6 @@ public class ConverterView extends Application {
         stage.setTitle("Converter");
         stage.setScene(scene1);
         stage.show();
-
         updateChoiceBoxes();
 
 
@@ -66,6 +68,7 @@ public class ConverterView extends Application {
                 String fromCurrency = choice1.getValue();
                 String toCurrency = choice2.getValue();
                 double amount1 = Double.parseDouble(amount.getText());
+                controller.saveTransaction(fromCurrency, toCurrency, amount1, controller.handleSelection(amount1, fromCurrency, toCurrency));
                 result.setText(String.format("%.2f", controller.handleSelection(amount1, fromCurrency, toCurrency)));
             } else {
                 result.setText("No selection");
@@ -92,9 +95,10 @@ public class ConverterView extends Application {
     }
 
     private void updateChoiceBoxes() {
+        List<Currency> currencies = controller.getCurrencies();
         choice1.getItems().clear();
         choice2.getItems().clear();
-        for (Currency currency : controller.getCurrencies()) {
+        for (Currency currency : currencies) {
             choice1.getItems().add(currency.getAbbreviation());
             choice2.getItems().add(currency.getAbbreviation());
         }

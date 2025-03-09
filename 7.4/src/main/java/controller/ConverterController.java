@@ -25,4 +25,8 @@ public class ConverterController {
     public void addCurrency(String abbreviation, String name, double rate) throws SQLException {
         converter.addCurrency(abbreviation, name, rate);
     }
+
+    public void saveTransaction(String fromCurrency, String toCurrency, double amount, double result) {
+        converter.saveTransaction(fromCurrency, toCurrency, amount, result);
+    }
 }

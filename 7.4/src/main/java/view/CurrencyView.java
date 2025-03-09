@@ -26,7 +26,6 @@ public class CurrencyView {
     @FXML
     private Label error;
 
-
     private ConverterController controller;
 
     public void setController(ConverterController controller) {

@@ -27,4 +27,8 @@ public class Converter {
         }
     }
 
+    public void saveTransaction(String fromCurrency, String toCurrency, double amount, double result) {
+        app.saveTransaction(fromCurrency, toCurrency, amount, result);
+    }
+
 }
